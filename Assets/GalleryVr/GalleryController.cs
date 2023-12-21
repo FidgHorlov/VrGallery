@@ -15,7 +15,7 @@ namespace GalleryVr
         {
             foreach (ImageHandler imageHandler in _imageHandlers)
             {
-                imageHandler.SetActive(false);
+                //imageHandler.SetActive(false);
                 imageHandler.UserNearImage += UserCameToImage;
             }
         }
@@ -89,7 +89,7 @@ namespace GalleryVr
             
             _imageHandlers[index].SetImage(texture.Result);
             _imageHandlers[index].SetImageInformation(imageModel.Name, imageModel.Description);
-            _imageHandlers[index].SetActive(true);
+            //_imageHandlers[index].SetActive(true);
             yield return null;
         }
 
@@ -99,6 +99,13 @@ namespace GalleryVr
         {
             Settings.CreateSettingsFileEditor();
         }
+        
+        [ContextMenu("Find all image handlers")]
+        private void FindAllImageHandlers()
+        {
+            _imageHandlers = GetComponentsInChildren<ImageHandler>();
+        }
+        
 #endif
     }
 }
