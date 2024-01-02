@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GalleryVr
 {
@@ -10,15 +9,30 @@ namespace GalleryVr
         private const float ShowAnimationDuration = 1.5f;
         private const float HideAnimationDuration = 0.5f;
 
+        private readonly Vector3 VerticalPosition = new Vector3(-1.05f, 0f, 0.04f);
+        private readonly Vector3 HorizontalPosition = new Vector3(-1.25f, 0.2f, 0.04f);
+
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TextMeshProUGUI _imageName;
         [SerializeField] private TextMeshProUGUI _imageDescription;
-
-        // maybe close description by hand touching
+        
+        private Transform _currentTransform;
+        private Transform CurrentTransform => _currentTransform ??= transform;
 
         private void Awake()
         {
             SetActiveImmediately(false);
+        }
+
+        public void SetDescriptionPosition(bool isHorizontal)
+        {
+            CurrentTransform.localPosition = isHorizontal ? HorizontalPosition : VerticalPosition;
+        }
+
+        public void SetImageInfo(string imageName, string description)
+        {
+            _imageName.text = imageName;
+            _imageDescription.text = description;
         }
 
         public void SetActive(bool isActive)
@@ -45,12 +59,6 @@ namespace GalleryVr
                     _canvasGroup.gameObject.SetActive(false);
                 }
             });
-        }
-
-        public void SetImageInfo(string imageName, string description)
-        {
-            _imageName.text = imageName;
-            _imageDescription.text = description;
         }
 
         private void SetActiveImmediately(bool isActive)
