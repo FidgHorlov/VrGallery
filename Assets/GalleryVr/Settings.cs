@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using GalleryVr;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace GalleryVr
 {
@@ -61,12 +63,13 @@ namespace GalleryVr
             {
                 await Task.Yield();
             }
-            
-            Texture2D texture2D = new Texture2D(0, 0);
-            texture2D.LoadImage(bytes.Result);
+
+            Texture2D texture2D = new Texture2D(1, 1);
+            texture2D.LoadImage(bytes.Result, false);
             texture2D.Apply();
             return texture2D;
         }
+
 
         private static string GetSettingsFilePath()
         {
