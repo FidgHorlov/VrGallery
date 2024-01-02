@@ -22,13 +22,7 @@ namespace GalleryVr
 
         internal static async Task<byte[]> LoadTextureBytes(string filePath)
         {
-            if (!File.Exists(filePath))
-            {
-                return null;
-            }
-
-            Task<byte[]> task = Task.Run(()=> File.ReadAllBytesAsync(filePath));
-            return await task;
+            return await File.ReadAllBytesAsync(filePath);
         }
 
         internal static void Save<T>(T settingsModel, string filePath)
